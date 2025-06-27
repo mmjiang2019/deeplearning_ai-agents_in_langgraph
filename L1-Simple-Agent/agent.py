@@ -9,7 +9,7 @@ class Agent:
         self.messages = []
         if self.system:
             self.messages.append({"role": "system", "content": self.system})
-        self.client = open_ai.new_open_ai_client()
+        self.client = open_ai.new_open_ai()
         # python regular expression to selection action
         self.known_actions = known_actions
         self.action_re = re.compile('^Action: (\w+): (.*)$')
