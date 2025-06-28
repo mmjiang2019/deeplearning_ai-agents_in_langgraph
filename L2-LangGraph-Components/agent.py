@@ -6,7 +6,7 @@ from langgraph.graph import StateGraph, END
 from IPython.display import Image
 
 from agents_in_langgraph.utils.open_ai import new_chat_open_ai
-from agents_in_langgraph.utils.tavily_search import new_trvily_search
+from agents_in_langgraph.utils.tavily_search import new_tavily_search
 
 class AgentState(TypedDict):
     messages: Annotated[list[AnyMessage], operator.add]
@@ -59,7 +59,7 @@ class Agent():
 if __name__ == '__main__':
     
     # TODO: define a custom tool implemented by ourselves
-    tool =  new_trvily_search()
+    tool =  new_tavily_search()
     print(type(tool))
     print(tool.name)
 
