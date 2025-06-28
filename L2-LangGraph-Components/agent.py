@@ -3,11 +3,10 @@ import operator
 from typing import TypedDict, Annotated
 from langchain_core.messages import AnyMessage, SystemMessage, HumanMessage, ToolMessage
 from langgraph.graph import StateGraph, END
-# from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain_tavily import TavilySearch
 from IPython.display import Image
 
-from agents_in_langgraph.utils.open_ai import new_chat_open_ai, new_trvily_search
+from agents_in_langgraph.utils.open_ai import new_chat_open_ai
+from agents_in_langgraph.utils.tavily_search import new_trvily_search
 
 class AgentState(TypedDict):
     messages: Annotated[list[AnyMessage], operator.add]
@@ -20,16 +19,16 @@ class Agent():
         graph.add_node("llm", self.call_openai)
         graph.add_node("action", self.take_action)
         graph.add_conditional_edges(
-            "llm", 
-            self.exists_action, 
-            {True: "action", False: END},
+            "llm", # where the conditional edge starts
+            self.exists_action, # function where to go after LLM returns
+            {True: "action", False: END}, # dict of possible destinations nodes
         )
-        graph.add_edge("action", "llm")
-        graph.set_entry_point("llm")
+        graph.add_edge("action", "llm") # add an edge from action to llm
+        graph.set_entry_point("llm") # set the entry point to llm
 
-        self.graph = graph.compile()
+        self.graph = graph.compile() # compile the graph, returning a langchain runnable
         self.tools = {t.name: t for t in tools}
-        self.model = model.bind_tools(tools)
+        self.model = model.bind_tools(tools) # bind the tools to the model
 
     def exists_action(self, state: AgentState):
         result = state['messages'][-1]

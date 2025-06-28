@@ -5,6 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "bs4>=0.0.2",
+    "duckduckgo-search>=8.0.4",
     "ipython>=9.3.0",
     "langchain>=0.3.26",
     "langchain-community>=0.3.26",
@@ -12,5 +14,6 @@ dependencies = [
     "langchain-tavily>=0.2.4",
     "langgraph>=0.5.0",
     "openai>=1.92.2",
-    "pygraphviz>=1.14",
+    "pygraphviz==1.14",
+    "tavily-python>=0.7.8",
 ]
