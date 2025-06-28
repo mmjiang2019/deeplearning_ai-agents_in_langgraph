@@ -35,7 +35,12 @@ uv add langgraph-checkpoint-sqlite
 uv pip install langgraph-checkpoint-sqlite
 以上方式二选一皆可
 
-### 2. SqliteSaver.from_conn_string(":memory:") 使用
+### 2. AsyncSqliteSaver 使用问题
+from langgraph.checkpoint.aiosqlite import AsyncSqliteSaver
+上述导入有问题，最新的包已经将 AsyncSqliteSaver 挪到 aio 中，从 langgraph.checkpoint.sqlite.aio 中导入
+from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
+
+### 3. SqliteSaver.from_conn_string(":memory:") 使用
 这里的 SqliteSaver.from_conn_string(":memory:") 是一个 context 上下文 manager， 并不是一个 checkpointer。两种方法解决以上问题
 #### 方法一： 直接使用 SqliteSaver 作为 checkpointer
 with SqliteSaver.from_conn_string(":memory:") as memory:
