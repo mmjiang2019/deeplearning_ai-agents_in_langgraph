@@ -3,16 +3,6 @@ from bs4 import BeautifulSoup
 from duckduckgo_search import DDGS
 import re
 
-# choose location (try to change to your own city!)
-
-city = "San Francisco"
-
-query = f"""
-    what is the current weather in {city}?
-    Should I travel there today?
-    "weather.com"
-"""
-
 class regular_search:
     def __init__(self, max_results: int = 6):
         self.max_results = max_results
@@ -70,6 +60,16 @@ class regular_search:
 
 
 if __name__ == '__main__':
+    # choose location (try to change to your own city!)
+
+    city = "San Francisco"
+
+    query = f"""
+        what is the current weather in {city}?
+        Should I travel there today?
+        "weather.com"
+    """
+
     reg_search = regular_search()
     # use DuckDuckGo to find websites and take the first result
     result = reg_search.search(query)

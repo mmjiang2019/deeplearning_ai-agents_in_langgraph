@@ -19,5 +19,5 @@ def new_trvily_client(
         tavily_api_key: str = get_tavily_key()
         ):
     return TavilyClient(
-        api_key=os.environ.get("TAVILY_API_KEY"),
+        api_key=tavily_api_key,
         )
